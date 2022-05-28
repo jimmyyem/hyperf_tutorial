@@ -7,29 +7,23 @@
 
 namespace App\Service;
 
-use Hyperf\Di\Annotation\Inject;
+use App\Model\UserModel;
+use Hyperf\Cache\Annotation\Cacheable;
 
 class UserService
 {
     /**
-     * @Inject()
-     * @var \App\Model\UserModel
+     * @param $id
+     * @return mixed
      */
-    protected $model;
-
-    /**
-     * 获取用户信息
-     *
-     * @param int|string $id
-     * @return array|null
-     */
-    public function getInfoById(int|string $id): array|null
+    #[Cacheable(prefix: "user_detail", ttl:90, listener:"user-update")]
+    public function getUser($id)
     {
-        $user = $this->model->find($id);
-        if ($user) {
-            return $user->toArray();
+        $user = UserModel::find($id);
+        if (empty($user)) {
+            return null;
         }
 
-        return null;
+        return $user->toArray();
     }
 }

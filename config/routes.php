@@ -27,3 +27,20 @@ Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@i
 Router::get('/favicon.ico', function () {
     return '';
 });
+
+
+// 单路由使用中间件
+Router::get('/api/v1/co', function() {
+    return 'api/v1/co';
+}, ['middleware' => [
+    \App\Middleware\CheckBody::class
+]]);
+
+// 路由组使用中间件
+Router::addGroup('/api/v2', function () {
+    Router::get('/chan', function(){
+        return 'api/v2/chan';
+    });
+}, ['middleware' => [
+    \App\Middleware\CheckBody::class
+]]);

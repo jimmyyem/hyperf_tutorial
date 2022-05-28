@@ -42,7 +42,7 @@ class CheckLogin implements MiddlewareInterface
         $this->container = $container;
         $this->response = $response;
         $this->request = $request;
-        $this->logger = $loggerFactory->get();
+        $this->logger = $loggerFactory->get('hyperf', 'custom');
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -55,9 +55,9 @@ class CheckLogin implements MiddlewareInterface
             $response = $handler->handle($request);
 
             //实现类似 后置中间件 功能
-            $body = $response->getBody()->getContents();
-            echo $body;
-            var_dump($response->withBody(new SwooleStream($body)));
+            //$body = $response->getBody()->getContents();
+            //echo $body;
+            //var_dump($response->withBody(new SwooleStream($body)));
 
             return $response;
         }

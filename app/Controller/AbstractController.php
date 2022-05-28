@@ -26,4 +26,32 @@ abstract class AbstractController
 
     #[Inject]
     protected ResponseInterface $response;
+
+    /**
+     * @param mixed $data
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    protected function success($data) {
+        return $this->response->json([
+            'code' => 0,
+            'msg' => '',
+            'data' => $data,
+            'ts' => microtime(true),
+        ]);
+    }
+
+    /**
+     * @param int $code
+     * @param string $msg
+     * @param mixed $data
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    protected function error(int $code, string $msg = '', $data = null) {
+        return $this->response->json([
+            'code' => $code,
+            'msg' => $msg,
+            'data' => $data,
+            'ts' => microtime(true),
+        ]);
+    }
 }

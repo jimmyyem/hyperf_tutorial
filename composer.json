@@ -26,6 +26,7 @@
         "hyperf/memory": "~2.2.0",
         "hyperf/process": "~2.2.0",
         "hyperf/redis": "~2.2.0",
+        "hyperf/task": "^2.2",
         "phper666/hyperf-server-command": "^1.0"
     },
     "require-dev": {

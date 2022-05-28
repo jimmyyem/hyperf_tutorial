@@ -8,7 +8,6 @@
 namespace App\Aspect;
 
 use App\Annotation\Foo;
-use App\Controller\ConfigController;
 use Hyperf\Di\Annotation\Aspect;
 use Hyperf\Di\Aop\AbstractAspect;
 use Hyperf\Di\Aop\ProceedingJoinPoint;
@@ -16,12 +15,20 @@ use Hyperf\Di\Aop\ProceedingJoinPoint;
 #[Aspect()]
 class IndexAspect extends AbstractAspect
 {
+    /**
+     * 对类、或者指定方法监听
+     * @var array
+     */
     public $classes = [
         //ConfigController::class,
         //IndexController::class,
         //'App\Controller\DataController::index',
     ];
 
+    /**
+     * 对注解进行监听
+     * @var string[]
+     */
     public $annotations = [
         Foo::class,
     ];
