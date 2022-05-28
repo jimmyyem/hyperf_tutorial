@@ -1,7 +1,14 @@
 <?php
 
 declare(strict_types=1);
-
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 namespace App\Controller;
 
 use App\Event\UserRegister;
@@ -12,19 +19,17 @@ use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 
 /**
- * @AutoController()
+ * @AutoController
  */
 class EventController
 {
     /**
-     * @Inject()
+     * @Inject
      * @var \Psr\EventDispatcher\EventDispatcherInterface
      */
     protected $eventDispatcher;
 
     /**
-     * @param \Hyperf\HttpServer\Contract\RequestInterface $request
-     * @param \Hyperf\HttpServer\Contract\ResponseInterface $response
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function user(RequestInterface $request, ResponseInterface $response)

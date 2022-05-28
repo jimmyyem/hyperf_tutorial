@@ -31,7 +31,8 @@ abstract class AbstractController
      * @param mixed $data
      * @return \Psr\Http\Message\ResponseInterface
      */
-    protected function success($data) {
+    protected function success($data)
+    {
         return $this->response->json([
             'code' => 0,
             'msg' => '',
@@ -41,12 +42,11 @@ abstract class AbstractController
     }
 
     /**
-     * @param int $code
-     * @param string $msg
      * @param mixed $data
      * @return \Psr\Http\Message\ResponseInterface
      */
-    protected function error(int $code, string $msg = '', $data = null) {
+    protected function error(int $code, string $msg = '', $data = null)
+    {
         return $this->response->json([
             'code' => $code,
             'msg' => $msg,

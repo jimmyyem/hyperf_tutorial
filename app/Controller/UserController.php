@@ -9,27 +9,26 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-
 namespace App\Controller;
 
+use Hyperf\Di\Annotation\Aspect;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\Controller;
-use Hyperf\HttpServer\Annotation\DeleteMapping;
 use Hyperf\HttpServer\Annotation\GetMapping;
 use Hyperf\HttpServer\Annotation\PutMapping;
 use Hyperf\HttpServer\Annotation\RequestMapping;
 use Hyperf\HttpServer\Contract\RequestInterface;
 
-#[Controller(prefix: "user")]
+#[Controller(prefix: 'user')]
 class UserController extends AbstractController
 {
     /**
-     * @Inject()
+     * @Inject
      * @var \App\Service\UserService
      */
     protected $userService;
 
-    #[GetMapping(path: "index")]
+    #[GetMapping(path: 'index')]
     public function index()
     {
         $offset = $this->request->input('offset', 0);
@@ -63,7 +62,7 @@ class UserController extends AbstractController
         ];
     }
 
-    #[PutMapping(path: "update")]
+    #[PutMapping(path: 'update')]
     public function update()
     {
         $offset = $this->request->input('offset', 0);
@@ -76,20 +75,23 @@ class UserController extends AbstractController
         ];
     }
 
-    #[DeleteMapping(path: "delete")]
-    public function delete()
+    #[GetMapping(path: 'cache')]
+    public function cache()
     {
-        $offset = $this->request->input('offset', 0);
-        $limit = $this->request->input('limit', 10);
+        $id = $this->request->input('id', 0);
+        if (empty($id)) {
+            return $this->error(500, '参数错误');
+        }
+
+        $user = $this->userService->getUserCache($id);
 
         return [
-            'offset' => $offset,
-            'limit' => $limit,
-            'method' => 'delete',
+            'user' => $user,
+            'id' => $id,
         ];
     }
 
-    #[GetMapping(path: "detail")]
+    #[GetMapping(path: 'detail')]
     public function detail(RequestInterface $request)
     {
         $id = $this->request->input('id', 0);
@@ -98,9 +100,38 @@ class UserController extends AbstractController
         }
 
         $user = $this->userService->getUser($id);
-        if (empty($user)) {
-            return $this->error(500, '不存在');
+
+        return $this->success([
+            'user' => $user,
+            'id' => $id,
+        ]);
+    }
+
+    #[GetMapping(path: 'incr')]
+    public function incr(RequestInterface $request)
+    {
+        $id = $this->request->input('id', 0);
+        if (empty($id)) {
+            return $this->error(500, '参数错误');
         }
+
+        $user = $this->userService->incr($id);
+
+        return $this->success([
+            'user' => $user,
+            'id' => $id,
+        ]);
+    }
+
+    #[GetMapping(path: 'incrCache')]
+    public function incrCache(RequestInterface $request)
+    {
+        $id = $this->request->input('id', 0);
+        if (empty($id)) {
+            return $this->error(500, '参数错误');
+        }
+
+        $user = $this->userService->incrCache($id);
 
         return $this->success([
             'user' => $user,

@@ -1,13 +1,19 @@
 <?php
 
 declare(strict_types=1);
-
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 namespace App\Middleware;
 
 use Hyperf\HttpMessage\Stream\SwooleStream;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface as HttpResponse;
-use Hyperf\HttpServer\Response;
 use Hyperf\Logger\LoggerFactory;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -50,16 +56,13 @@ class CheckLogin implements MiddlewareInterface
         $this->logger->info('enter middleware CheckLogin');
 
         $authorization = $request->getHeader('Authorization');
-        $isValidToken = !empty($authorization);
+        $isValidToken = ! empty($authorization);
         if ($isValidToken) {
-            $response = $handler->handle($request);
-
-            //实现类似 后置中间件 功能
-            //$body = $response->getBody()->getContents();
-            //echo $body;
-            //var_dump($response->withBody(new SwooleStream($body)));
-
-            return $response;
+            return $handler->handle($request);
+            // 实现类似 后置中间件 功能
+            // $body = $response->getBody()->getContents();
+            // echo $body;
+            // var_dump($response->withBody(new SwooleStream($body)));
         }
 
         return $this->response->json(

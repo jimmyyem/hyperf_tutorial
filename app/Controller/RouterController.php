@@ -1,6 +1,6 @@
 <?php
 /**
- * 路由有3种方式
+ * 路由有3种方式.
  * @see https://hyperf.wiki/2.0/#/zh-cn/router
  * 1. route.php 里配置
  * 2. 注解路由- AutoController，完全生成class与public方法的组合
@@ -17,13 +17,12 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
-use App\Annotation\Foo;
 use Hyperf\HttpServer\Annotation\AutoController;
 use Hyperf\HttpServer\Annotation\GetMapping;
 use Hyperf\HttpServer\Annotation\PostMapping;
 
 /**
- * @AutoController()
+ * @AutoController
  */
 class RouterController extends AbstractController
 {
@@ -43,7 +42,7 @@ class RouterController extends AbstractController
     }
 
     /**
-     * 保存内容
+     * 保存内容.
      * @return array
      * @PostMapping(path="store")
      */

@@ -1,7 +1,14 @@
 <?php
 
 declare(strict_types=1);
-
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 namespace App\Middleware;
 
 use Hyperf\HttpServer\Contract\RequestInterface;
@@ -40,13 +47,12 @@ class CheckHeader implements MiddlewareInterface
     {
         /**
          * 根据具体业务判断逻辑走向，这里假设用户携带的token有效
-         * 这里是在 在 return $response 之前操作，实现了类似 前置 中间件的功能
+         * 这里是在 在 return $response 之前操作，实现了类似 前置 中间件的功能.
          */
         $authorization = $request->getHeader('Authorization');
-        $isValidToken = !empty($authorization);
+        $isValidToken = ! empty($authorization);
         if ($isValidToken) {
-            $response = $handler->handle($request);
-            return $response;
+            return $handler->handle($request);
         }
 
         return $this->response->json(

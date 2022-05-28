@@ -11,6 +11,6 @@ declare(strict_types=1);
  */
 return [
     'http' => [
-        //\App\Middleware\CheckLogin::class,
+        // \App\Middleware\CheckLogin::class,
     ],
 ];

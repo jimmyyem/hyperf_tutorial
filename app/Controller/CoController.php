@@ -1,6 +1,6 @@
 <?php
 /**
- * hyperf 协程及封装
+ * hyperf 协程及封装.
  * @see https://hyperf.wiki/2.0/#/zh-cn/coroutine
  * 1. go(function() {})
  * 2. co(function() {})
@@ -8,13 +8,19 @@
  * 4. Defer
  * 5. WaitGroup
  * 6. Parallel，封装的WaitGroup，使用更便利
- * 7. 
- * 
- * @author yanhuaguo
+ * 7.
+ *
  * @date 2022-05-18 14:03:52
  */
 declare(strict_types=1);
-
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 namespace App\Controller;
 
 use Hyperf\Di\Annotation\Inject;
@@ -29,41 +35,32 @@ use Swoole\Coroutine\WaitGroup;
 class CoController
 {
     /**
-     * @Inject()
+     * @Inject
      * @var \Hyperf\Guzzle\ClientFactory
      */
     protected $clientFactory;
 
     /**
-     * @param \Hyperf\HttpServer\Contract\RequestInterface $request
-     * @param \Hyperf\HttpServer\Contract\ResponseInterface $response
      * @return mixed
      */
     public function index(RequestInterface $request, ResponseInterface $response)
     {
-        //return $response->raw('Hello Hyperf!');
+        // return $response->raw('Hello Hyperf!');
         return 1;
     }
 
-    /**
-     * @param \Hyperf\HttpServer\Contract\RequestInterface $request
-     * @return void
-     */
     public function sleep(RequestInterface $request)
     {
         $second = $request->query('second', 1);
         $second = (int) $second;
         sleep($second);
-
-        return;
     }
 
     /**
-     * 试用 hyperf/swoole 协程并发操作
+     * 试用 hyperf/swoole 协程并发操作.
      *
-     * @param \Hyperf\HttpServer\Contract\RequestInterface $request
-     * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return mixed
      */
     public function chan(RequestInterface $request)
     {
@@ -100,11 +97,10 @@ class CoController
     }
 
     /**
-     * 使用 hyperf/swoole 协程并发操作
+     * 使用 hyperf/swoole 协程并发操作.
      *
-     * @param \Hyperf\HttpServer\Contract\RequestInterface $request
-     * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return mixed
      */
     public function wait(RequestInterface $request)
     {
@@ -137,7 +133,6 @@ class CoController
     }
 
     /**
-     * @param \Hyperf\HttpServer\Contract\RequestInterface $request
      * @return mixed
      */
     public function parallel(RequestInterface $request)

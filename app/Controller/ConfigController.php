@@ -1,25 +1,23 @@
 <?php
-/**
- * hyperf配置的使用，3种方式
- * @see https://hyperf.wiki/2.0/#/zh-cn/config
- * 1. 注入 ConfigInterface，然后通过 get() 方法获取
- * 2. 注入 @Value("databases.default.driver") 获取
- * 3. config("databases.default.driver"); 获取
- * 
- * @author yanhuaguo
- * @date 2022-05-17 21:59
- **/
 
+declare(strict_types=1);
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 namespace App\Controller;
 
 use Hyperf\Config\Annotation\Value;
 use Hyperf\Di\Annotation\Inject;
-use Hyperf\HttpServer\Annotation\AutoController;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\GetMapping;
 use Hyperf\HttpServer\Contract\RequestInterface;
 
-#[Controller(prefix: "config")]
+#[Controller(prefix: 'config')]
 class ConfigController
 {
     /**
@@ -28,7 +26,7 @@ class ConfigController
     protected $driver;
 
     /**
-     * @Inject()
+     * @Inject
      * @var \Hyperf\Contract\ConfigInterface
      */
     protected $config;
@@ -36,7 +34,7 @@ class ConfigController
     /**
      * @return mixed
      */
-    #[GetMapping("")]
+    #[GetMapping('')]
     public function index(RequestInterface $request)
     {
         $key = $request->query('key', 'app_name');

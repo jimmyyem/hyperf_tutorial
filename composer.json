@@ -19,14 +19,15 @@
         "hyperf/database": "~2.2.0",
         "hyperf/db-connection": "^2.2",
         "hyperf/di": "^2.2",
+        "hyperf/event": "^2.2",
         "hyperf/framework": "~2.2.0",
         "hyperf/guzzle": "~2.2.0",
         "hyperf/http-server": "~2.2.0",
         "hyperf/logger": "^2.2",
         "hyperf/memory": "~2.2.0",
+        "hyperf/model-cache": "^2.2",
         "hyperf/process": "~2.2.0",
         "hyperf/redis": "~2.2.0",
-        "hyperf/task": "^2.2",
         "phper666/hyperf-server-command": "^1.0"
     },
     "require-dev": {

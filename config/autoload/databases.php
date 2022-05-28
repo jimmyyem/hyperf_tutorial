@@ -44,5 +44,14 @@ return [
             // 如果使用的为非原生 MySQL 或云厂商提供的 DB 如从库/分析型实例等不支持 MySQL prepare 协议的, 将此项设置为 true
             // PDO::ATTR_EMULATE_PREPARES => false,
         ],
+        'cache' => [
+            'handler' => \Hyperf\ModelCache\Handler\RedisHandler::class,
+            'cache_key' => 'mc:%s:m:%s:%s:%s',
+            'prefix' => 'default',
+            'ttl' => 3600 * 24,
+            'empty_model_ttl' => 3600,
+            'load_script' => true,
+            'use_default_value' => false,
+        ],
     ],
 ];

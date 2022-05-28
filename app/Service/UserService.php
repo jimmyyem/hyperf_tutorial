@@ -1,14 +1,17 @@
 <?php
-/**
- *
- * @author yanhuaguo
- * @date 2022-05-14 18:16
- **/
 
+declare(strict_types=1);
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 namespace App\Service;
 
 use App\Model\UserModel;
-use Hyperf\Cache\Annotation\Cacheable;
 
 class UserService
 {
@@ -16,14 +19,36 @@ class UserService
      * @param $id
      * @return mixed
      */
-    #[Cacheable(prefix: "user_detail", ttl:90, listener:"user-update")]
     public function getUser($id)
     {
-        $user = UserModel::find($id);
-        if (empty($user)) {
-            return null;
-        }
+        return UserModel::query()->find($id);
+    }
 
-        return $user->toArray();
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getUserCache($id)
+    {
+        return UserModel::findFromCache($id);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function incr($id)
+    {
+        return UserModel::query()->where('id',$id)->increment('assets');
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function incrCache($id)
+    {
+        $user = UserModel::find($id);
+        return $user->increment('assets');
     }
 }
