@@ -27,12 +27,12 @@ return [
             ],
         ],
     ],
-    'custom' => [
+    'error' => [
         'handler' => [
-            'class' => Monolog\Handler\StreamHandler::class,
+            'class' => Monolog\Handler\RotatingFileHandler::class,
             'constructor' => [
-                'stream' => BASE_PATH . sprintf('/runtime/logs/%s.log', date('Y-m-d')),
-                'level' => Monolog\Logger::DEBUG,
+                'filename' => BASE_PATH . '/runtime/logs/debug/error.log',
+                'level' => Monolog\Logger::ERROR,
             ],
         ],
         'formatter' => [
